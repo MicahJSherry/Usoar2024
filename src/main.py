@@ -16,9 +16,9 @@ for file in os.listdir(embeding_dir):
     data = np.load(path)
     emb = data['embedding']
     if emb_list is None:
-        emb_list = emb.mean()
+        emb_list = emb.mean(axix=0)
     else:
-        emb_list = np.vstack((emb_list, emb.mean()))
+        emb_list = np.vstack((emb_list, emb.mean(axix=0)))
     print(path, emb.shape)
     del emb
     del data
