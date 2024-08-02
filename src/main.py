@@ -17,9 +17,11 @@ for file in os.listdir(embeding_dir):
     if emb_list is None:
         emb_list = emb[-1]
     else:
-        emb_list = np.append(emb_list, emb[-1])
+        emb_list = np.vstack((emb_list, emb[-1]))
     print(path, emb.shape)
     del emb
     del data
 print(emb_list.shape)
 
+dbscan_cluster_model = DBSCAN(eps=0.2, min_samples=15).fit(emb_list)
+print(dbscan_cluster_model.labels_)
