@@ -1,11 +1,12 @@
 import numpy as np 
 import os 
-
+from sklearn.cluster import DBSCAN
 embeding_dir = "../embedings"
 
 y_list = []
-emb_list = []
+emb_list = None
 
+# loading data 
 for file in os.listdir(embeding_dir):
     path = f"{embeding_dir}/{file}"
 
@@ -13,10 +14,12 @@ for file in os.listdir(embeding_dir):
     
     data = np.load(path)
     emb = data['embedding']
-    emb_list.append(emb[-1])
+    if emb_list is None:
+        emb_list = emb[-1]
+    else:
+        emb_list = np.stack((emb_list,emb[-1]))
     print(path, emb.shape)
     del emb
     del data
-    
-print(y_list)
-print(emb_list)
+print(emb_list.shape)
+
