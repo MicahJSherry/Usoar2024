@@ -17,7 +17,7 @@ for file in os.listdir(embeding_dir):
     if emb_list is None:
         emb_list = emb[-1]
     else:
-        emb_list = np.stack((emb_list,emb[-1]))
+        emb_list = np.append(emb_list, emb[-1])
     print(path, emb.shape)
     del emb
     del data
