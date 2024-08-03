@@ -1,19 +1,26 @@
 import numpy as np 
 import os 
-from sklearn.cluster import DBSCAN
+from sklearn.cluster import DBSCAN, KMeans
 from sklearn.decomposition import PCA
+from sklearn.preprocessing import LabelEncoder
 
 import matplotlib.pyplot as plt 
+from recomend import *
+
 embeding_dir = "../embedings"
 
 y_list = []
+track_nums= []
 emb_list = None
+i = 0
 
 # loading data 
 for file in os.listdir(embeding_dir):
     path = f"{embeding_dir}/{file}"
-
-    y_list.append(file.split(sep=".")[0])
+    tokens=file.split(sep=".")
+    print(i,tokens)
+    y_list.append(tokens[0])
+    track_nums.append(tokens[1])
     
     data = np.load(path)
     emb = data['embedding']
@@ -21,17 +28,31 @@ for file in os.listdir(embeding_dir):
         emb_list = emb.mean(axis=0)
     else:
         emb_list = np.vstack((emb_list, emb.mean(axis=0)))
-    print(path, emb.shape)
+    #print(path, emb.shape)
     del emb
     del data
-print(emb_list)
+    i += 1
+print(emb_list.shape)
 
 pca = PCA(n_components=2)
 x=pca.fit_transform(emb_list)
-print(plt.scatter(x[:0],x[:1]))
-plt.savefig("scater.png")
+
+label_encoder = LabelEncoder()
+y_encoded = label_encoder.fit_transform(y_list)
     
-#dbscan_cluster_model = DBSCAN(eps=0.9, min_samples=3).fit(emb_list)
-#print(dbscan_cluster_model.labels_)
+#print(y_encoded)
+
+kmeans = KMeans(n_clusters=10, random_state=0, n_init="auto").fit(emb_list)
+y_kmeans = kmeans.labels_
+#print(y_kmeans)
+
+plt.scatter(x[:,0],x[:,1],c=y_encoded, cmap='viridis')
+plt.savefig("scater_true.png")
 
 
+plt.scatter(x[:,0],x[:,1], c=y_kmeans, cmap='viridis')
+plt.savefig("scater_kmeans.png")
+
+r= recomend_sum([988, 987, 990],emb_list)
+
+print(f"recomended_song is {y_list[r]}.{track_nums[r]}")
