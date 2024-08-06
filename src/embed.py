@@ -23,8 +23,7 @@ y = []
 
 emb_list = []
 
-#model = openl3.models.load_audio_embedding_model(input_repr="mel256", content_type="music",
-#                                               embedding_size=512)
+model = openl3.models.load_audio_embedding_model(input_repr="mel256", content_type="music", embedding_size=512)
 for genre in genre_dirs:
     wav_files = os.listdir(f"{data_dir}/{genre}")
     for file in wav_files:
@@ -32,7 +31,7 @@ for genre in genre_dirs:
 
         try:
             filepath = f"{data_dir}/{genre}/{file}"
-            openl3.process_audio_file(filepath, output_dir='../embedings',overwrite=True)
+            openl3.process_audio_file(filepath, output_dir='../embedings', model=model)
         except:
             count += 1
 
