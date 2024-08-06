@@ -1,5 +1,7 @@
 import numpy as np
 
+
+
 def calc_norms(liked_song, all_songs):
     norms = []
     
@@ -39,8 +41,33 @@ def recomend_sum(liked_indexs, all_songs):
     return min_index_nonzero(sum_dists)
     
     
+
+def recomend_sort(liked_indexes, all_songs):
     
     
+    sorted_dists = []
+    for liked in liked_indexes:
+        norms = calc_norms(liked, all_songs)
+        for i in range(len(all_songs)):
+            norms[i] = (i, norms[i]) 
+            norms = sorted(norms, key=lambda x: x[-1])
+
+        sorted_dists.append(norms)
+    
+    canidate_map = {}
+    for i in range(len(all_songs)):
+        for dists_from_liked in sorted_dists:
+            canidate = dists_from_liked[i][0]
+            canidate_count = canidate_map.get(canidate,0)
+            canidate_count += 1
+            if canidate_count == len(liked_indexes):
+                return canidate
+            canidate_map[canidate] = canidate_count
+    
+
+
+    
+        
     
 
 

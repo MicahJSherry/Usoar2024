@@ -53,6 +53,7 @@ plt.savefig("scater_true.png")
 plt.scatter(x[:,0],x[:,1], c=y_kmeans, cmap='viridis')
 plt.savefig("scater_kmeans.png")
 
-r= recomend_sum([988, 987, 990],emb_list)
-
-print(f"recomended_song is {y_list[r]}.{track_nums[r]}")
+r1= recomend_sum([988, 987, 990],emb_list)
+r2 = recomend_sort([988, 987, 990],emb_list)
+print(f"recomended (by sum algorithm) song is {y_list[r1]}.{track_nums[r1]}")
+print(f"recomended (by sort algorithm) song is {y_list[r1]}.{track_nums[r1]}")
