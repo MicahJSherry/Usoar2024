@@ -71,8 +71,10 @@ def recomend(arr):
     print()
 
 arrs = [
-    [988,987,990],
-    [388, 259]
+    [988,989,990],
+    [388, 259],
+    [801,782,802]
+    [780,781]
     ]
 for arr in arrs:
     recomend(arr)
