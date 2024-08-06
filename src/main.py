@@ -7,6 +7,9 @@ from sklearn.preprocessing import LabelEncoder
 import matplotlib.pyplot as plt 
 from recomend import *
 
+def get_track_str(i,genres,tracks):
+    return f"{genres[i]}.{tracks[i]}"
+
 embeding_dir = "../embedings"
 
 y_list = []
@@ -54,6 +57,14 @@ plt.scatter(x[:,0],x[:,1], c=y_kmeans, cmap='viridis')
 plt.title("music grouped by K-Means clustering")
 plt.savefig("scater_kmeans.png")
 
-r= recomend_sum([988, 987, 990],emb_list)
 
-print(f"recomended_song is {y_list[r]}.{track_nums[r]}")
+r1= recomend_sum([988, 987, 990],emb_list)
+r2 = recomend_sort([988, 987, 990],emb_list)
+print(f"recomended (by sum algorithm) song is {y_list[r1]}.{track_nums[r1]}")
+print(f"recomended (by sort algorithm) song is {y_list[r2]}.{track_nums[r2]}")
+
+r1 = recomend_sum([388, 259],emb_list)
+r2 = recomend_sort([388,259],emb_list)
+print(f"recomended (by sum algorithm) song is {y_list[r1]}.{track_nums[r1]}")
+print(f"recomended (by sort algorithm) song is {y_list[r2]}.{track_nums[r2]}")
+
