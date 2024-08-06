@@ -1,11 +1,21 @@
 import numpy as np
-
+from sklearn.metrics.pairwise import cosine_similarity
 def calc_norms(liked_song, all_songs):
     norms = []
     
     for s in all_songs:
 
         n = np.linalg.norm(s-liked_song)
+        norms.append(n)
+
+    return norms
+
+def calc_cosine_sim(liked_song, all_songs):
+    norms = []
+    
+    for s in all_songs:
+
+        n = cosine_similarity(s, liked_song)
         norms.append(n)
 
     return norms
@@ -61,7 +71,24 @@ def recomend_sort(liked_indexes, all_songs):
             canidate_map[canidate] = canidate_count
         
 
-
+def recomend_cosine(liked_indexs, all_songs):
+    sum_dists = None
+    
+    
+    for i in liked_indexs:
+        liked_song = all_songs[i]
+        n = calc_cosine_sim(liked_song, all_songs) 
+        
+        if sum_dists is None:
+            sum_dists = n
+        else:
+            for j in range(len(n)):
+                if n[j] == 0 or sum_dists[j] == 0:
+                    sum_dists[j] = 0
+                else:
+                    sum_dists[j]+= n[j]
+    return min_index_nonzero(sum_dists)
+    
     
         
     
