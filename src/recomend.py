@@ -15,7 +15,7 @@ def calc_cosine_sim(liked_song, all_songs):
     
     for s in all_songs:
 
-        n = cosine_similarity(s, liked_song)
+        n = cosine_similarity([s], [liked_song])
         norms.append(n)
 
     return norms
@@ -69,7 +69,13 @@ def recomend_sort(liked_indexes, all_songs):
             if canidate_count == len(liked_indexes):
                 return canidate
             canidate_map[canidate] = canidate_count
-        
+
+def max_index(arr):
+    m = 0 
+    for  i in range(len(arr)):
+        if arr[i]> arr[m]:
+            m = i 
+    return m
 
 def recomend_cosine(liked_indexs, all_songs):
     sum_dists = None
@@ -87,7 +93,7 @@ def recomend_cosine(liked_indexs, all_songs):
                     sum_dists[j] = 0
                 else:
                     sum_dists[j]+= n[j]
-    return min_index_nonzero(sum_dists)
+    return max_index(sum_dists)
     
     
         
