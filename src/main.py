@@ -57,23 +57,22 @@ plt.scatter(x[:,0],x[:,1], c=y_kmeans, cmap='viridis')
 plt.title("music grouped by K-Means clustering")
 plt.savefig("scater_kmeans.png")
 
-r1 = recomend_sum([988, 987, 990],emb_list)
-r2 = recomend_sort([988, 987, 990],emb_list)
-r3 = recomend_cosine([988, 987, 990],emb_list)
-print(f"recomended (by sum algorithm)  song is {r1}: {y_list[r1]}.{track_nums[r1]}")
-print(f"recomended (by sort algorithm) song is {r2}: {y_list[r2]}.{track_nums[r2]}")
-print(f"recomended (by sort algorithm) song is {r3}: {y_list[r3]}.{track_nums[r3]}")
-print()
-r1 = recomend_sum([49,0],emb_list)
-r2 = recomend_sort([49,0],emb_list)
-r3 = recomend_cosine([49,0],emb_list)
-print(f"recomended (by sum algorithm)  song is {r1}: {y_list[r1]}.{track_nums[r1]}")
-print(f"recomended (by sort algorithm) song is {r2}: {y_list[r2]}.{track_nums[r2]}")
-print(f"recomended (by sort algorithm) song is {r3}: {y_list[r3]}.{track_nums[r3]}")
-print()
-r1 = recomend_sum([388, 259],emb_list)
-r2 = recomend_sort([388, 259],emb_list)
-r3 = recomend_cosine([388, 259],emb_list)
-print(f"recomended (by sum algorithm)  song is {r1}: {y_list[r1]}.{track_nums[r1]}")
-print(f"recomended (by sort algorithm) song is {r2}: {y_list[r2]}.{track_nums[r2]}")
-print(f"recomended (by sort algorithm) song is {r3}: {y_list[r3]}.{track_nums[r3]}")
+def recomend(arr):
+    print("given this set of liked songs:")
+    for i in arr:
+        print(f"{i}: {y_list[i]}.{track_nums[i]}")
+    
+    r1 = recomend_sum(arr,emb_list)
+    r2 = recomend_sort(arr,emb_list)
+    r3 = recomend_cosine(arr,emb_list)
+    print(f"recomended (by sum algorithm)  song is {r1}: {y_list[r1]}.{track_nums[r1]}")
+    print(f"recomended (by sort algorithm) song is {r2}: {y_list[r2]}.{track_nums[r2]}")
+    print(f"recomended (by sort algorithm) song is {r3}: {y_list[r3]}.{track_nums[r3]}")
+    print()
+
+arrs = [
+    [988,987,990],
+    [388, 259]
+    ]
+for arr in arrs:
+    recomend(arr)
