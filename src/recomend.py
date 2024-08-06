@@ -11,9 +11,9 @@ def calc_norms(liked_song, all_songs):
     return norms
 
 def min_index_nonzero(arr):
-    m = 0
+    m = -1
     for i in range(len(arr)):
-        if arr[i] > 0 and arr[i] < arr[m]:
+        if arr[i] > 0 and (m == -1 or arr[i] < arr[m]):
             m = i 
     return m 
 
@@ -56,11 +56,10 @@ def recomend_sort(liked_indexes, all_songs):
             canidate = dists_from_liked[i][0]
             canidate_count = canidate_map.get(canidate,0)
             canidate_count += 1
-            print(canidate, dists_from_liked[i][1])
             if canidate_count == len(liked_indexes):
                 return canidate
             canidate_map[canidate] = canidate_count
-    
+        
 
 
     
