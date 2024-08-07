@@ -92,7 +92,6 @@ def recomend_cosine(liked_indexs, all_songs):
                 sum_dists[j]+= n[j]
         
     return min_index_nonzero(sum_dists)
->>>>>>> 19bc5a59e182dfd98a593cec92dbddae5ce5ee36
     
     
         
