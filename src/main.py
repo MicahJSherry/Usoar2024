@@ -6,9 +6,8 @@ from sklearn.preprocessing import LabelEncoder
 
 import matplotlib.pyplot as plt 
 from recomend import *
+    
 
-def get_track_str(i,genres,tracks):
-    return f"{genres[i]}.{tracks[i]}"
 
 embeding_dir = "../embedings"
 
@@ -48,9 +47,13 @@ y_encoded = label_encoder.fit_transform(y_list)
 kmeans = KMeans(n_clusters=10, random_state=0, n_init="auto").fit(emb_list)
 y_kmeans = kmeans.labels_
 
-hdbscan = HDBSCAN().fit(emb_list)
+#for p in range(2,17):
+   # for p2 in range(2,17):
+
+hdbscan = HDBSCAN(min_cluster_size=10, min_samples=2).fit(emb_list)
 y_hdbscan = hdbscan.labels_
 
+#print(f"{p},{p2}, {len(set(y_hdbscan))}")
 dbscan= DBSCAN().fit(emb_list)
 y_dbscan = dbscan.labels_
 
