@@ -89,11 +89,10 @@ def recomend_cosine(liked_indexs, all_songs):
             sum_dists = n
         else:
             for j in range(len(n)):
-                if n[j] == 0 or sum_dists[j] == 0:
-                    sum_dists[j] = 0
-                else:
-                    sum_dists[j]+= n[j]
-    return max_index(sum_dists)
+                sum_dists[j]+= n[j]
+        
+    return min_index_nonzero(sum_dists)
+>>>>>>> 19bc5a59e182dfd98a593cec92dbddae5ce5ee36
     
     
         
