@@ -1,6 +1,6 @@
 import numpy as np 
 import os 
-from sklearn.cluster import DBSCAN, KMeans
+from sklearn.cluster import HDBSCAN, DBSCAN, KMeans
 from sklearn.decomposition import PCA
 from sklearn.preprocessing import LabelEncoder
 
@@ -48,6 +48,12 @@ y_encoded = label_encoder.fit_transform(y_list)
 kmeans = KMeans(n_clusters=10, random_state=0, n_init="auto").fit(emb_list)
 y_kmeans = kmeans.labels_
 
+hdbscan = HDBSCAN().fit(emb_list)
+y_hdbscan = hdbscan.labels_
+
+dbscan= DBSCAN().fit(emb_list)
+y_dbscan = dbscan.labels_
+
 plt.scatter(x[:,0],x[:,1],c=y_encoded, cmap='viridis')
 plt.title("music grouped by Genre")
 plt.savefig("scater_true.png")
@@ -56,6 +62,15 @@ plt.clf()
 plt.scatter(x[:,0],x[:,1], c=y_kmeans, cmap='viridis')
 plt.title("music grouped by K-Means clustering")
 plt.savefig("scater_kmeans.png")
+
+plt.scatter(x[:,0],x[:,1], c=y_hdbscan, cmap='viridis')
+plt.title("music grouped by HDBSCAN clustering")
+plt.savefig("scater_HDBSCAN.png")
+
+plt.scatter(x[:,0],x[:,1], c=y_dbscan, cmap='viridis')
+plt.title("music grouped by DBSCAN clustering")
+plt.savefig("scater_DBSCAN.png")
+
 
 def recomend(arr):
     print("given this set of liked songs:")
