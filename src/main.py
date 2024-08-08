@@ -47,13 +47,22 @@ y_encoded = label_encoder.fit_transform(y_list)
 kmeans = KMeans(n_clusters=10, random_state=0, n_init="auto").fit(emb_list)
 y_kmeans = kmeans.labels_
 
-#for p in range(2,17):
-   # for p2 in range(2,17):
+for p in range(2,17):
+    for p2 in range(2,17):
 
-hdbscan = HDBSCAN(min_cluster_size=10, min_samples=2).fit(emb_list)
-y_hdbscan = hdbscan.labels_
+        hdbscan = HDBSCAN(min_cluster_size=p, min_samples=p2).fit(emb_list)
+        y_hdbscan = hdbscan.labels_
+        num_clust = len(set(y_hdbscan))
+        if num_clust > 8:
 
-#print(f"{p},{p2}, {len(set(y_hdbscan))}")
+            print(f"{p},{p2}, {len(set(y_hdbscan))}")
+    
+            plt.scatter(x[:,0],x[:,1], c=y_hdbscan, cmap='viridis')
+            plt.title(f"music grouped by HDBSCAN clustering")
+            plt.savefig(f"scater_HDBSCAN_{p}_{p2}_{num_clust}.png")
+            plt.clf()
+
+
 dbscan= DBSCAN().fit(emb_list)
 y_dbscan = dbscan.labels_
 
@@ -65,14 +74,13 @@ plt.clf()
 plt.scatter(x[:,0],x[:,1], c=y_kmeans, cmap='viridis')
 plt.title("music grouped by K-Means clustering")
 plt.savefig("scater_kmeans.png")
+plt.clf()
 
-plt.scatter(x[:,0],x[:,1], c=y_hdbscan, cmap='viridis')
-plt.title("music grouped by HDBSCAN clustering")
-plt.savefig("scater_HDBSCAN.png")
 
 plt.scatter(x[:,0],x[:,1], c=y_dbscan, cmap='viridis')
 plt.title("music grouped by DBSCAN clustering")
 plt.savefig("scater_DBSCAN.png")
+plt.clf()
 
 
 def recomend(arr):
