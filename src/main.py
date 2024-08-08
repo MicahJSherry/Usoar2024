@@ -66,27 +66,27 @@ ss_dbscan = silhouette_score(emb_list, y_dbscan)
 
 plt.scatter(x[:,0],x[:,1],c=y_encoded, cmap='viridis')
 plt.title("music grouped by Genre")
-plt.text(40,10, f"silhouette_score:{ss_genre:.2f}")
+plt.text(20,10, f"silhouette_score:{ss_genre:.2f}")
 plt.savefig(f"{figs}/scater_true.png")
 plt.clf()
 
 plt.scatter(x[:,0],x[:,1], c=y_kmeans, cmap='viridis')
 plt.title("music grouped by K-Means clustering")
-plt.text(40,10, f"silhouette_score:{ss_kmeans:.2f}")
+plt.text(20,10, f"silhouette_score:{ss_kmeans:.2f}")
 plt.savefig(f"{figs}/scater_kmeans.png")
 plt.clf()
 
 
 plt.scatter(x[:,0],x[:,1], c=y_hdbscan, cmap='viridis')
 plt.title(f"music grouped by HDBSCAN clustering")
-plt.text(40,10, f"silhouette_score:{ss_hdbscan:.2f}")
+plt.text(20,10, f"silhouette_score:{ss_hdbscan:.2f}")
 plt.savefig(f"{figs}/scater_HDBSCAN.png")
 plt.clf()
 
 
 plt.scatter(x[:,0],x[:,1], c=y_dbscan, cmap='viridis')
 plt.title("music grouped by DBSCAN clustering")
-plt.text(40,10, f"silhouette_score:{ss_dbscan:.2f}")
+plt.text(20,10, f"silhouette_score:{ss_dbscan:.2f}")
 plt.savefig(f"{figs}/scater_DBSCAN.png")
 plt.clf()
 
