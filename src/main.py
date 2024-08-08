@@ -2,6 +2,7 @@ import numpy as np
 import os 
 from sklearn.cluster import HDBSCAN, DBSCAN, KMeans
 from sklearn.decomposition import PCA
+from sklearn.manifold import TSNE 
 from sklearn.preprocessing import LabelEncoder
 
 import matplotlib.pyplot as plt 
@@ -36,7 +37,7 @@ for file in os.listdir(embeding_dir):
     i += 1
 print(emb_list.shape)
 
-pca = PCA(n_components=2)
+pca = TSNE(n_components=2)
 x=pca.fit_transform(emb_list)
 
 label_encoder = LabelEncoder()
