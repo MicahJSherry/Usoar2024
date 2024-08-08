@@ -2,10 +2,14 @@ import numpy as np
 import os 
 from sklearn.cluster import HDBSCAN, DBSCAN, KMeans
 from sklearn.decomposition import PCA
+
 from sklearn.manifold import TSNE 
+
 from sklearn.preprocessing import LabelEncoder
 
 import matplotlib.pyplot as plt 
+from sklearn.metrics import  silhouette_score
+
 from recomend import *
     
 
@@ -42,44 +46,43 @@ x=pca.fit_transform(emb_list)
 
 label_encoder = LabelEncoder()
 y_encoded = label_encoder.fit_transform(y_list)
-    
+
+ss_genre = silhouette_score(emb_list, y_encoded)    
 #print(y_encoded)
 
 kmeans = KMeans(n_clusters=10, random_state=0, n_init="auto").fit(emb_list)
 y_kmeans = kmeans.labels_
+ss_kmeans = silhouette_score(emb_list, y_kmeans)    
 
-for p in range(2,17):
-    for p2 in range(2,17):
-
-        hdbscan = HDBSCAN(min_cluster_size=p, min_samples=p2).fit(emb_list)
-        y_hdbscan = hdbscan.labels_
-        num_clust = len(set(y_hdbscan))
-        if num_clust > 8:
-
-            print(f"{p},{p2}, {len(set(y_hdbscan))}")
-    
-            plt.scatter(x[:,0],x[:,1], c=y_hdbscan, cmap='viridis')
-            plt.title(f"music grouped by HDBSCAN clustering")
-            plt.savefig(f"{figs}/scater_HDBSCAN_{p}_{p2}_{num_clust}.png")
-            plt.clf()
-
+hdbscan = HDBSCAN().fit(emb_list)
+y_hdbscan = hdbscan.labels_
+ss_hdbscan = silhouette_score(emb_list, y_hdbscan) 
 
 dbscan= DBSCAN().fit(emb_list)
 y_dbscan = dbscan.labels_
+ss_dbscan = silhouette_score(emb_list, y_dbscan) 
+
+
 
 plt.scatter(x[:,0],x[:,1],c=y_encoded, cmap='viridis')
-plt.title("music grouped by Genre")
+plt.title("music grouped by Genre \tsilhouette_score:{ss_genre}")
 plt.savefig(f"{figs}/scater_true.png")
 plt.clf()
 
 plt.scatter(x[:,0],x[:,1], c=y_kmeans, cmap='viridis')
-plt.title("music grouped by K-Means clustering")
+plt.title("music grouped by K-Means clustering \tsilhouette_score:{ss_kmeans}")
 plt.savefig(f"{figs}/scater_kmeans.png")
 plt.clf()
 
 
+plt.scatter(x[:,0],x[:,1], c=y_hdbscan, cmap='viridis')
+plt.title(f"music grouped by HDBSCAN clustering \tsilhouette_score:{ss_hdbscan} ")
+plt.savefig(f"{figs}/scater_HDBSCAN.png")
+plt.clf()
+
+
 plt.scatter(x[:,0],x[:,1], c=y_dbscan, cmap='viridis')
-plt.title("music grouped by DBSCAN clustering")
+plt.title("music grouped by DBSCAN clustering \tsilhouette_score:{ss_dbscan}")
 plt.savefig(f"{figs}/scater_DBSCAN.png")
 plt.clf()
 
