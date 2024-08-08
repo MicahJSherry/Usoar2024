@@ -54,11 +54,11 @@ kmeans = KMeans(n_clusters=10, random_state=0, n_init="auto").fit(emb_list)
 y_kmeans = kmeans.labels_
 ss_kmeans = silhouette_score(emb_list, y_kmeans)    
 
-hdbscan = HDBSCAN().fit(emb_list)
+hdbscan = HDBSCAN(min_cluster_size=10, min_samples=5).fit(emb_list)
 y_hdbscan = hdbscan.labels_
 ss_hdbscan = silhouette_score(emb_list, y_hdbscan) 
 
-dbscan= DBSCAN().fit(emb_list)
+dbscan= DBSCAN(eps=12.2, min_samples=5).fit(emb_list)
 y_dbscan = dbscan.labels_
 ss_dbscan = silhouette_score(emb_list, y_dbscan) 
 
