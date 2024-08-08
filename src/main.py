@@ -10,7 +10,7 @@ from recomend import *
 
 
 embeding_dir = "../embedings"
-
+figs = "../figs"
 y_list = []
 track_nums= []
 emb_list = None
@@ -59,7 +59,7 @@ for p in range(2,17):
     
             plt.scatter(x[:,0],x[:,1], c=y_hdbscan, cmap='viridis')
             plt.title(f"music grouped by HDBSCAN clustering")
-            plt.savefig(f"scater_HDBSCAN_{p}_{p2}_{num_clust}.png")
+            plt.savefig(f"{figs}/scater_HDBSCAN_{p}_{p2}_{num_clust}.png")
             plt.clf()
 
 
@@ -68,18 +68,18 @@ y_dbscan = dbscan.labels_
 
 plt.scatter(x[:,0],x[:,1],c=y_encoded, cmap='viridis')
 plt.title("music grouped by Genre")
-plt.savefig("scater_true.png")
+plt.savefig(f"{figs}/scater_true.png")
 plt.clf()
 
 plt.scatter(x[:,0],x[:,1], c=y_kmeans, cmap='viridis')
 plt.title("music grouped by K-Means clustering")
-plt.savefig("scater_kmeans.png")
+plt.savefig(f"{figs}/scater_kmeans.png")
 plt.clf()
 
 
 plt.scatter(x[:,0],x[:,1], c=y_dbscan, cmap='viridis')
 plt.title("music grouped by DBSCAN clustering")
-plt.savefig("scater_DBSCAN.png")
+plt.savefig(f"{figs}/scater_DBSCAN.png")
 plt.clf()
 
 
