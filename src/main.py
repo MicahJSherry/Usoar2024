@@ -57,7 +57,7 @@ y_hdbscan = hdbscan.labels_
 dbscan  = DBSCAN(eps=4.2, min_samples=5).fit(emb_list)
 y_dbscan = dbscan.labels_
 
-affinity = AffinityPropagation(eps=12.2, min_samples=5).fit(emb_list)
+affinity = AffinityPropagation().fit(emb_list)
 y_affinity = affinity.labels_
 
 
