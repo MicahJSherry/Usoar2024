@@ -40,7 +40,7 @@ for file in os.listdir(embeding_dir):
     i += 1
 print(emb_list.shape)
 
-pca = TSNE(n_components=2, early_exaggeration = 30)
+pca = TSNE(n_components=2,perplexity=50, early_exaggeration = 30)
 x=pca.fit_transform(emb_list)
 
 label_encoder = LabelEncoder()
