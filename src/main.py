@@ -1,6 +1,6 @@
 import numpy as np 
 import os 
-from sklearn.cluster import HDBSCAN, DBSCAN, KMeans, AffinityPropagation
+from sklearn.cluster import HDBSCAN, DBSCAN, KMeans, AffinityPropagation, AgglomerativeClustering
 from sklearn.decomposition import PCA
 
 from sklearn.manifold import TSNE 
@@ -60,6 +60,9 @@ y_dbscan = dbscan.labels_
 affinity = AffinityPropagation().fit(emb_list)
 y_affinity = affinity.labels_
 
+agg = AgglomerativeClustering(n_clusters=10).fit(emb_list)
+y_agg = agg.labels_
+
 
 plt.scatter(x[:,0],x[:,1],c=y_encoded, cmap='viridis')
 plt.title("music grouped by Genre")
@@ -86,6 +89,11 @@ plt.clf()
 plt.scatter(x[:,0],x[:,1], c=y_affinity, cmap='viridis')
 plt.title("music grouped by Affinity Propagation clustering")
 plt.savefig(f"{figs}/scater_AffinityPropagation.png")
+plt.clf()
+
+plt.scatter(x[:,0],x[:,1], c=y_agg, cmap='viridis')
+plt.title("music grouped by Agglomerative clustering")
+plt.savefig(f"{figs}/scater_agg.png")
 plt.clf()
 
 
