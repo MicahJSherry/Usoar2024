@@ -54,7 +54,7 @@ y_kmeans = kmeans.labels_
 hdbscan = HDBSCAN(min_cluster_size=10, min_samples=5).fit(emb_list)
 y_hdbscan = hdbscan.labels_
 
-dbscan  = DBSCAN(eps=4.2, min_samples=5).fit(emb_list)
+dbscan  = DBSCAN(eps=4.6, min_samples=7).fit(emb_list)
 y_dbscan = dbscan.labels_
 
 affinity = AffinityPropagation().fit(emb_list)

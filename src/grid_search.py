@@ -47,7 +47,7 @@ def dbscan_parameter_search(X, eps_range, min_samples_range):
       labels = dbscan.fit_predict(X)
       
       # Skip if all points are noise
-      if len(set(labels)) == 1 and -1 in labels:
+      if len(set(labels)) == 1:
         continue
 
       score = silhouette_score(X, labels)
@@ -62,11 +62,12 @@ def dbscan_parameter_search(X, eps_range, min_samples_range):
 # Example usage:
 
 
-eps_range = np.linspace(0.1, 10, 10)
-min_samples_range = range(5, 20)
+eps_range = np.linspace(0.1, 15, 100)
+min_samples_range = range(5, 50)
 
 
-p , s =dbscan_parameter_search(emb_list, eps_range, min_samples_range)
+p, s =dbscan_parameter_search(emb_list, eps_range, min_samples_range)
+print(p,s)
 
 dbscan  = DBSCAN(eps=p["eps"], min_samples=p["min_samples"]).fit(emb_list)
 y_dbscan = dbscan.labels_
